@@ -10,7 +10,7 @@ What's more, I enable you by using this script to edit files comfortably even fr
 
 This script enables you to edit text files on Linux as [`root`](https://en.wikipedia.org/wiki/Superuser#Unix_and_Unix-like) safely through `sudoedit`.
 
-Internal workings are that `sudoedit` copies the file into a temporary file, and overwrites the original file if, and only if, that file has successfuly been changed (saved).
+Internal workings are that `sudoedit` copies the file into a temporary file, and overwrites the original file if, and only if, that file has successfuly been changed (saved) and the text editor properly exited.
 
 It is a standard [POSIX](https://en.wikipedia.org/wiki/POSIX) shell script, it should work in any [Linux](https://en.wikipedia.org/wiki/Linux) distribution; more precisely, your [shell](https://en.wikipedia.org/wiki/Unix_shell).
 
