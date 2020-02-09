@@ -1,0 +1,149 @@
+#!/bin/sh
+
+###############################################################################
+##            Safe text files editing as root (sudoedit enhanced)            ##
+##                        Portable POSIX shell script                        ##
+##                     Copyright: 2020 Vlastimil Burian                      ##
+##                      E-mail: info@vlastimilburian.cz                      ##
+##                             License: GPL-3.0                              ##
+##                               Revision: 1.0                               ##
+##                        GitHub: https://git.io/Jvnzq                       ##
+###############################################################################
+
+# BEFORE USE
+
+# Please, customize these lists to your preference before using this script!
+sudoedit__cli_editor_list='nano vi'
+sudoedit__gui_editor_list='gedit emacs xed subl code'
+
+# Short list of editors I use or have used in the past, including only these.
+# Descriptions are my own words based on my past or current experiences only.
+#------------------------------------------------------------------------------
+# Command-line:
+# NANO  - free, minimalistic, suitable for new users or those not having time to learn vim (https://www.nano-editor.org/)
+# VIM   - free, very complex to learn and operate, suitable for hard-core users (https://www.vim.org/)
+# Graphical:
+# GEDIT - free, simple and easy to use, but relatively powerful general purpose editor (https://wiki.gnome.org/Apps/Gedit)
+# EMACS - free, extensible, customizable, suitable for experienced users (https://www.gnu.org/software/emacs/)
+# XED   - free, small and lightweight text editor, Linux Mint specific originally (https://github.com/linuxmint/xed)
+# SUBL  - paid, $80 to date, with unlimited trial though, faster compared to Code (https://www.sublimetext.com/)
+# CODE  - free, heavy, slow on old computers, but extremely powerful, my personal favorite (https://code.visualstudio.com/)
+
+#------------------------------------------------------------------------------
+
+# USAGE INSTRUCTIONS
+
+# 1. Customize the editor lists in the beginning of this script, defaults are:
+# sudoedit__cli_editor_list='nano vi'
+# sudoedit__gui_editor_list='gedit emacs xed subl'
+#
+# 2. Bash: Source this script in your ~/.bashrc or ~/.bash_aliases with:
+# . /full/path/to/sudoedit-enhanced
+# Generally put it inside your shell's startup config file...
+#
+# 3. Call an alias, for instance, one CLI, and one GUI editor:
+# sunano /path/to/file
+# susubl /path/to/file
+#
+# Explanation: This script works with standard sudoedit, but
+# it does way more checks and allows GUI editors to be used.
+# It needs to be sourced into your shell's environment first.
+# Then simply use the pre-defined aliases or define some yourself.
+
+#------------------------------------------------------------------------------
+
+sudoedit_enhanced_run ()
+# Generic function for text editing as root
+# the proper, safe, way through `sudoedit`.
+# Expected arguments:
+# $1 = editor name; obviously mandatory
+# $2 = wait option; to avoid this, pass an empty string ''
+# $3, ($4), ... = file(s); at least one file must be given
+{
+    # store the function name for error reports because POSIX
+    # does not have a way of identifying the running function
+    function_name='sudoedit_enhanced_run'
+
+    # check the minimum number of arguments
+    if [ $# -lt 3 ]; then
+        # we print the strings in a way we want while having multi-line code
+        # this is especially useful for code readability, it looks and works great
+        # shellcheck disable=SC2016
+        printf '%s\n' >&2 \
+            "$function_name(): Low number of arguments." \
+            'Expected: $1 = editor name; $2 = wait option; $3, ($4), ... = file(s).' \
+            "Passed $#: $*"
+        return 1
+    fi
+
+    # store the first argument, it shall be an editor name
+    editor_name=$1
+
+    # store an editor alias; and if there is any, remove it for now
+    if editor_alias=$( alias "$editor_name" 2> /dev/null ); then
+        unalias "$editor_name"
+    fi
+
+    # find out if such editor exists on the system
+    editor_path=$( command -v "$editor_name" 2> /dev/null )
+
+    # this might be removed in the future as all gui editors accept the same option
+    wait_option=$2
+
+    # if that editor does not return valid path, print error and bail
+    if ! [ -x "$editor_path" ]; then
+        printf '%s\n' >&2 "$function_name(): This editor ('$editor_name') is not installed on this system."
+        return 1
+    fi
+
+    # move past the editor and its wait option to the actual files
+    shift 2
+
+    # check if all the files exist, it does not make sense to create a file this way IMHO
+    for file in "$@"; do
+        if ! [ -f "$file" ]; then
+            printf '%s\n' >&2 "$function_name(): This file ('$file') does not exist or it is not a regular file."
+            return 1
+        fi
+    done
+
+    if [ "$editor_name" = code ]; then
+        code_data_dir='/root/.config/Code'
+        # main command; code-specific
+        # it is not possible to use sudoedit in conjunction with code
+        # yet it is possible to specify --user-data-dir option for it
+        sudo mkdir -p "$code_data_dir" &&
+        sudo "$editor_path" "$wait_option" --user-data-dir="$code_data_dir" "$@"
+    else
+        # main command; generic
+        # run the editor with one-time SUDO_EDITOR set-up
+        SUDO_EDITOR="$editor_path $wait_option" sudoedit "$@"
+    fi
+
+    # re-define the editor alias, if there was any, afterward
+    if [ -n "$editor_alias" ]; then
+        eval "$editor_alias"
+    fi
+}
+
+#--------------------------------------------------------------------
+
+# Editor aliases generators:
+# - there can be an unlimited amount of editors in the the cli / gui list
+# - we avoid generating editors aliases for which editor is not installed
+
+for cli_editor in $sudoedit__cli_editor_list; do
+    if command -v "$cli_editor" > /dev/null 2>&1; then
+        # shellcheck disable=SC2139
+        # shellcheck disable=SC2086
+        alias su$cli_editor="sudoedit_enhanced_run $cli_editor ''"
+    fi
+done
+
+for gui_editor in $sudoedit__gui_editor_list; do
+    if command -v "$gui_editor" > /dev/null 2>&1; then
+        # shellcheck disable=SC2139
+        # shellcheck disable=SC2086
+        alias su$gui_editor="sudoedit_enhanced_run $gui_editor -w"
+    fi
+done
