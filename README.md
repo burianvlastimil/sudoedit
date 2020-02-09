@@ -49,7 +49,7 @@ You don't have to explicitly remove those not present in your system, as the scr
 
 The integration will vary greatly on what shell you use. As there are many [shell](https://en.wikipedia.org/wiki/Unix_shell)s in general use, I only provide guidance for [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29).
 
-#### [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)
+### [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29)
 
 There are multiple ways to source my script to your [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29), of course.
 
@@ -60,6 +60,14 @@ My personal recommendation is to create (if not yet existing) the `~/.bash_alias
 ```
 
 Sourcing using the _dot_ (.) is a [POSIX](https://en.wikipedia.org/wiki/POSIX) way of doing so. In [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29), however, there is also the builtin command `source`, you can use it if you want.
+
+Afterward, you need to make sure that these (or similar) lines are present and not commented out in your `~/.bashrc`:
+
+```
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+```
 
 ***
 
