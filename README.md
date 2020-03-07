@@ -16,7 +16,7 @@ It is a standard [POSIX](https://en.wikipedia.org/wiki/POSIX) shell script, it s
 
 ***
 
-## Pre-requisites
+## Requirements
 
 The only requirement is to have [`sudo`](https://linux.die.net/man/8/sudo) properly installed and configured. If you have that, then `sudoedit` is available automatically as it is directly [`sudo`](https://linux.die.net/man/8/sudo)'s _edit_ feature.
 
@@ -87,7 +87,7 @@ These `alias`es begin with `su` + name of the editor.
 
 Disclaimer: There is absolutely no affiliation with [Nano editor](https://www.nano-editor.org/) team, but I _personaly like_ this command-line editor.
 
-![GRUB config file safe editing with Nano CLI editor](https://programyburian.cz/grub-sunano.png)
+![GRUB config file safe editing with Nano CLI editor](https://vlastimilburian.cz/public/github_images/sudoedit-enhanced--nano.png)
 
 ***
 
@@ -95,7 +95,7 @@ Disclaimer: There is absolutely no affiliation with [Nano editor](https://www.na
 
 Disclaimer: There is absolutely no affiliation with [Sublime-Text editor](https://www.sublimetext.com/) team, but I _personaly like_ this graphical-interface editor.
 
-![GRUB config file safe editing with Sublime-Text GUI editor](https://programyburian.cz/grub-susubl.png)
+![GRUB config file safe editing with Sublime-Text GUI editor](https://vlastimilburian.cz/public/github_images/sudoedit-enhanced--subl.png)
 
 ***
 
