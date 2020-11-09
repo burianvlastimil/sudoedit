@@ -89,7 +89,7 @@ Disclaimer: There is **no affiliation** with the [Nano editor](https://www.nano-
 
 ![GRUB config file safe editing with Nano CLI editor](https://vlastimilburian.cz/public/github_images/sudoedit-enhanced--nano.png)
 
-Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php).
+Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php), but note you would have to compile the program yourself, which is what I am doing.
 
 ***
 
@@ -105,4 +105,4 @@ Download: The [Sublime-Text editor](https://www.sublimetext.com/) (home page) ca
 
 ## Reporting bugs and suggestions
 
-Please open a [new issue ticket](https://github.com/burianvlastimil/sudoedit-enhanced/issues/new) (direct link).
+Please open a [new issue ticket](https://github.com/burianvlastimil/sudoedit-enhanced/issues/new) (direct link) or you can also mail me at <a href="mailto:info@vlastimilburian.cz">info@vlastimilburian.cz</a> (email link).
