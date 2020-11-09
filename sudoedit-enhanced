@@ -1,33 +1,37 @@
 #!/bin/sh
 
-#―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――#
-#             Safe text files editing as root (sudoedit enhanced)             #
-#                         Portable POSIX shell script                         #
-#                    Copyright: 2020-2020 Vlastimil Burian                    #
-#                       E-mail: info@vlastimilburian.cz                       #
-#                              License: GPL v3.0                              #
-#                                Revision: 1.1                                #
-#                        GitHub: https://git.io/Jvnzq                         #
-#―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――#
+#+------------------------------------------------------------------------------+
+#|                        Safe text files editing as `root`                     |
+#|                          Language: POSIX shell script                        |
+#|                     Copyright: 2020-2020 Vlastimil Burian                    |
+#|                      M@il: info[..]vlastimilburian[..]cz                     |
+#|                               License: GPL 3.0                               |
+#|                                 Version: 2.0                                 |
+#|                         GitHub: https://git.io/Jvnzq                         |
+#+------------------------------------------------------------------------------+
 
-# BEFORE USE
+# BEFORE FIRST USE !!!
 
 # Please, customize these lists to your preference before using this script!
-sudoedit__cli_editor_list='nano vi vim'
-sudoedit__gui_editor_list='gedit emacs xed subl code'
+# VS Code has been removed by default;
+# you can still add `code` but it won't work via `sudoedit`, but directly with sudo, which is just wrong!
+# `subl` which is still on top of editor's chain (however proprietary) works OK -- I myself prefer this one on remote access (= light).
+# `atom` which is getting on popularity lately is fully open-source && works OK -- I myself prefer this one on local access  (= heavy).
+sudoedit__cli_editors='vi nano'
+sudoedit__gui_editors='subl atom'    # xed gedit code
 
 # Short list of editors I use or have used in the past, including only these.
 # Descriptions are my own words based on my past or current experiences only.
 #------------------------------------------------------------------------------
 # Command-line:
-# NANO  - free, minimalistic, suitable for new users or those not having time to learn vim (https://www.nano-editor.org/)
-# VI(M) - free, very complex to learn and operate, suitable for hard-core users (https://www.vim.org/)
+# VI    - free, very complex to learn and operate, suitable for hard-core users (https://www.vim.org/)
+# NANO  - free, minimalistic, suitable for new users or those not having time to learn VI (https://www.nano-editor.org/)
 # Graphical:
 # GEDIT - free, simple and easy to use, but relatively powerful general purpose editor (https://wiki.gnome.org/Apps/Gedit)
-# EMACS - free, extensible, customizable, suitable for experienced users (https://www.gnu.org/software/emacs/)
 # XED   - free, small and lightweight text editor, Linux Mint specific originally (https://github.com/linuxmint/xed)
 # SUBL  - paid, $80 to date, with unlimited trial though, faster compared to Code (https://www.sublimetext.com/)
-# CODE  - free, heavy, slow on old computers, but extremely powerful, my personal favorite (https://code.visualstudio.com/)
+# ATOM  - free, heavy, slow on remote access, recommended only for local editing (https://atom.io/)
+# CODE  - free, heavy, slow on old computers, but extremely powerful, my personal favorite for "normal" use (https://code.visualstudio.com/)
 
 # USAGE INSTRUCTIONS
 
@@ -41,54 +45,44 @@ sudoedit__gui_editor_list='gedit emacs xed subl code'
 # sunano /path/to/file
 # susubl /path/to/file
 #
-# Explanation: This script works with standard sudoedit, but
-# it does way more checks and allows GUI editors to be used.
+# Explanation: This script works with standard `sudoedit`, but
+# it does a bit more checks and allows GUI editors to be used.
 # It needs to be sourced into your shell's environment first.
 # Then simply use the pre-defined aliases or define some yourself.
 
 sudoedit_err ()
 {
-    printf 'sudoedit_run(): %b\n' "$@" >&2
+    printf >&2 'Error in sudoedit_run():\n'
+    printf >&2 '%b\n' "$@"
+    exit 1
 }
 
-sudoedit_run ()
+sudoedit_sub ()
 {
-    # sudoedit is part of sudo`s edit feature
-    if ! command -v sudo > /dev/null 2>&1; then
-        sudoedit_err "'sudo' is required by this script."
-        return 1
-    fi
+    # `sudoedit` is part of `sudo`'s edit feature
+    ! command -v sudo > /dev/null 2>&1 &&
+    sudoedit_err "'sudo' is required by this script."
     # primary non-empty arguments check
-    if ! { [ $# -ge 3 ] && [ -n "$1" ] && [ -n "$2" ] && [ -n "$3" ]; } then
-        sudoedit_err "Low number of arguments.\\nExpected: \$1 = editor type; \$2 = editor name; \$3, (\$4), ... = file(s).\\nPassed $#: $*"
-        return 1
-    fi
+    ! { [ $# -ge 3 ] && [ -n "$1" ] && [ -n "$2" ] && [ -n "$3" ]; } &&
+    sudoedit_err "Low number of arguments.\\nExpected: \$1 = editor type; \$2 = editor name; \$3, (\$4), ... = file(s).\\nPassed $#: $*"
     # editor arguments processing
     case "$1" in
-        (cli) wait_option=''   ;;
-        (gui) wait_option='-w' ;;
-        ( * ) sudoedit_err 'Unrecognized editor type.'; return 1 ;;
+        (cli) wait_option=   ;;
+        (gui) wait_option=-w ;;
+        ( * ) sudoedit_err "'$1' is unrecognized editor type." ;;
     esac
     editor_name=$2
     editor_path=$(command -v "$editor_name" 2> /dev/null)
     shift 2
-    # check if such editor is installed on the system
-    if ! [ -x "$editor_path" ]; then
-        sudoedit_err "This editor ('$editor_name') is not installed on this system."
-        return 1
-    fi
-    # 1. check if all the files exist, it does not make sense to create a new file this way
-    # 2. sudoedit does not work with symlinks, so translate symlinks to normal file paths
+    # check if such editor (executable program) is installed on the system
+    ! [ -x "$editor_path" ] &&
+    sudoedit_err "The '$editor_name' editor is not installed on this system."
+    # `sudoedit` does not work with symlinks; translating symlinks to normal file paths
+    command -v readlink > /dev/null 2>&1 &&
     for file in "$@"; do
-        if ! [ -f "$file" ]; then
-            sudoedit_err "This file ('$file') does not exist or it is not a regular file."
-            return 1
-        fi
         if [ -L "$file" ]; then
-            if ! file=$(readlink -f "$file"); then
-                sudoedit_err "readlink -f $file failed."
-                return 1
-            fi
+            ! file=$(readlink -f "$file") &&
+            sudoedit_err "readlink -f $file failed."
         fi
         set -- "$@" "$file"
         shift
@@ -97,28 +91,33 @@ sudoedit_run ()
     if [ "$editor_name" = code ]; then
         code_data_dir=/root/.config/Code
         # Code-specific; NOT using `sudoedit`
-        # it is not possible to use sudoedit in conjunction with Code
-        # yet it is possible to specify --user-data-dir option for it
+        # It is not possible to use `sudoedit` in conjunction with Code;
+        # Yet it is possible to specify --user-data-dir option for it...
         sudo mkdir -p "$code_data_dir" &&
-        sudo "$editor_path" "$wait_option" --user-data-dir="$code_data_dir" "$@"
+        sudo "$editor_path" "$wait_option" --user-data-dir="$code_data_dir" -- "$@"
     else
-        # generic; using `sudoedit`
-        # run the editor with one-time SUDO_EDITOR set-up
-        SUDO_EDITOR="$editor_path $wait_option" sudoedit "$@"
+        # generic proper way; using `sudoedit`
+        # running the editor with one-time SUDO_EDITOR setup
+        SUDO_EDITOR="$editor_path $wait_option" sudoedit -- "$@"
     fi
+}
+
+sudoedit_run ()
+{
+    ( sudoedit_sub "$@" )
 }
 
 # Editor aliases generators:
 # - there can be an unlimited amount of editors in the the cli / gui list
 # - we avoid generating editors aliases for which editor is not installed
-for cli_editor in $sudoedit__cli_editor_list; do
+for cli_editor in $sudoedit__cli_editors; do
     if command -v "$cli_editor" > /dev/null 2>&1; then
         # shellcheck disable=SC2139
         # shellcheck disable=SC2086
         alias su$cli_editor="sudoedit_run cli $cli_editor"
     fi
 done
-for gui_editor in $sudoedit__gui_editor_list; do
+for gui_editor in $sudoedit__gui_editors; do
     if command -v "$gui_editor" > /dev/null 2>&1; then
         # shellcheck disable=SC2139
         # shellcheck disable=SC2086
