@@ -1,3 +1,7 @@
+[![Download the latest version](https://img.shields.io/badge/Download-Latest%20version-orange)](https://github.com/burianvlastimil/sudoedit-enhanced/releases/latest) &nbsp; &nbsp; &nbsp; &nbsp; [![GPLv3 License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/burianvlastimil/sudoedit-enhanced/blob/master/LICENSE) &nbsp; &nbsp; &nbsp; &nbsp; [![Maintained](https://img.shields.io/badge/Maintained-Yes-green.svg)](https://github.com/burianvlastimil/sudoedit-enhanced/graphs/commit-activity) &nbsp; &nbsp; &nbsp; &nbsp; [![ShellCheck Passing](https://img.shields.io/badge/ShellCheck-Passing-brightgreen)](https://www.shellcheck.net)
+
+***
+
 # Safe text files editing as [`root`](https://en.wikipedia.org/wiki/Superuser#Unix_and_Unix-like) (wiki) in [Linux](https://en.wikipedia.org/wiki/Linux) (wiki)
 
 This topic should interest all [Linux](https://en.wikipedia.org/wiki/Linux) (wiki) administrators as it is them who do the changes. Be it a home user, or a corporate admin. Without a doubt, no one wants to cripple their system just because the power went down, or an [`ssh`](https://linux.die.net/man/1/ssh) (man page) session was interrupted by a bad connection, etcetera.
