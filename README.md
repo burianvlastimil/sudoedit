@@ -85,7 +85,7 @@ These `alias`es begin with `su` + name of the editor.
 
 ***
 
-## Examples of an actual use
+## Examples of actual use
 
 ### `sunano /etc/default/grub` (using the [Nano editor (CLI)](https://www.nano-editor.org/))
 
