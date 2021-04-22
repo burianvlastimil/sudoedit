@@ -1,4 +1,4 @@
-[![Download the latest version](https://img.shields.io/badge/Download-Latest%20version-orange)](https://github.com/burianvlastimil/sudoedit-enhanced/releases/latest) &nbsp; &nbsp; &nbsp; &nbsp; [![GPLv3 License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/burianvlastimil/sudoedit-enhanced/blob/master/LICENSE) &nbsp; &nbsp; &nbsp; &nbsp; [![Maintained](https://img.shields.io/badge/Maintained-Yes-green.svg)](https://github.com/burianvlastimil/sudoedit-enhanced/graphs/commit-activity) &nbsp; &nbsp; &nbsp; &nbsp; [![ShellCheck Passing](https://img.shields.io/badge/ShellCheck-Passing-brightgreen)](https://www.shellcheck.net)
+[![Download the latest version](https://img.shields.io/badge/Download-Latest%20version-orange)](https://github.com/burianvlastimil/sudoedit-enhanced/releases/latest) &nbsp; &nbsp; &nbsp; &nbsp; [![Donate via PayPal](https://img.shields.io/badge/Donate%20%24-via%20PayPal-%23013088)](https://github.com/burianvlastimil/sudoedit-enhanced#donations) &nbsp; &nbsp; &nbsp; &nbsp; [![GPLv3 License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/burianvlastimil/sudoedit-enhanced/blob/master/LICENSE) &nbsp; &nbsp; &nbsp; &nbsp; [![ShellCheck Passing](https://img.shields.io/badge/ShellCheck-Passing-brightgreen)](https://github.com/burianvlastimil/sudoedit-enhanced)
 
 ***
 
@@ -105,8 +105,21 @@ Disclaimer: There is **no affiliation** with the [Sublime-Text editor](https://w
 
 Download: The [Sublime-Text editor](https://www.sublimetext.com/) (home page) can be downloaded from [this page](https://www.sublimetext.com/3).
 
+
 ***
 
 ## Reporting bugs and suggestions
 
-Please open a [new issue ticket](https://github.com/burianvlastimil/sudoedit-enhanced/issues/new) (direct link) or you can also mail me at [info@vlastimilburian.cz](mailto:info@vlastimilburian.cz) (email link).
+Please open a [new issue ticket](https://github.com/burianvlastimil/lightshot-print-screen-linux-handler/issues/new) (direct link) or you can also mail me at [info@vlastimilburian.cz](mailto:info@vlastimilburian.cz) (email link).
+
+***
+
+## Donations
+
+### Donate via PayPal
+
+Donations are possible via my PayPal account issued on the same email address as mentioned above.
+
+Or you can directly scan the below QR code with PayPal app on your smartphone.
+
+![My PayPal QR Code](https://www.vlastimilburian.cz/github_images/paypal_qrcode.png)
