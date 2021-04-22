@@ -110,7 +110,7 @@ Download: The [Sublime-Text editor](https://www.sublimetext.com/) (home page) ca
 
 ## Reporting bugs and suggestions
 
-Please open a [new issue ticket](https://github.com/burianvlastimil/lightshot-print-screen-linux-handler/issues/new) (direct link) or you can also mail me at [info@vlastimilburian.cz](mailto:info@vlastimilburian.cz) (email link).
+Please open a [new issue ticket](https://github.com/burianvlastimil/sudoedit-enhanced/issues/new) (direct link) or you can also mail me at [info@vlastimilburian.cz](mailto:info@vlastimilburian.cz) (email link).
 
 ***
 
