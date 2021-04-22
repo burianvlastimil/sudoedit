@@ -40,7 +40,7 @@ Once downloaded, place the script somewhere it can stay for good.
 
 Please, customize the editors lists to your preference before actually using this script, by default there are these specified at the beginning of the script:
 
-```
+```bash
 sudoedit__cli_editors='vi nano'
 sudoedit__gui_editors='subl atom'
 ```
@@ -59,7 +59,7 @@ There are multiple ways to source my script to your [`bash`](https://en.wikipedi
 
 My personal recommendation is to create (if not yet existing) the `~/.bash_aliases` file and source my script from there using the _dot_ (`.`):
 
-```
+```bash
 . /full/path/to/sudoedit-enhanced
 ```
 
@@ -67,7 +67,7 @@ Sourcing using the _dot_ (.) is a [POSIX](https://en.wikipedia.org/wiki/POSIX) (
 
 Afterward, you need to make sure that these (or similar) lines are present and not commented out in your `~/.bashrc`:
 
-```
+```bash
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
