@@ -91,7 +91,7 @@ These `alias`es begin with `su` + name of the editor.
 
 Disclaimer: There is **no affiliation** with the [Nano editor](https://www.nano-editor.org/) (home page) team, but I _personaly like_ this command-line editor.
 
-![GRUB config file safe editing with Nano CLI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--nano.png)
+![GRUB config file safe editing with Nano CLI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--nano-2021.png)
 
 Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php), but note you would have to compile the program yourself, which is what I am doing.
 
@@ -101,7 +101,7 @@ Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be dow
 
 Disclaimer: There is **no affiliation** with the [Sublime-Text editor](https://www.sublimetext.com/) (home page) team, but I _personaly like_ this graphical-interface editor.
 
-![GRUB config file safe editing with Sublime-Text GUI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--subl.png)
+![GRUB config file safe editing with Sublime-Text GUI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--subl-2021.png)
 
 Download: The [Sublime-Text editor](https://www.sublimetext.com/) (home page) can be downloaded from [this page](https://www.sublimetext.com/3).
 
