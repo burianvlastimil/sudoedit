@@ -14,7 +14,7 @@ What's more, by using this script I enable you to edit files comfortably even fr
 
 For a quick look, I made this demo for you, it takes less than two and a half minutes.
 
-![SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo.svg)
+![SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo-2021.svg)
 
 ***
 
