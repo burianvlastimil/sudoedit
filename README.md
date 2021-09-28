@@ -4,9 +4,17 @@
 
 # Safe text files editing as [`root`](https://en.wikipedia.org/wiki/Superuser#Unix_and_Unix-like) (wiki) in [Linux](https://en.wikipedia.org/wiki/Linux) (wiki)
 
-This topic should interest all [Linux](https://en.wikipedia.org/wiki/Linux) (wiki) administrators as it is them who do the changes. Be it a home user, or a corporate admin. Without a doubt, no one wants to cripple their system just because the power went down, or an [`ssh`](https://linux.die.net/man/1/ssh) (man page) session was interrupted by a bad connection, etcetera.
+This topic might interest all [Linux](https://en.wikipedia.org/wiki/Linux) (wiki) administrators as it is them who do the changes. Be it a home user, or a corporate admin. Without a doubt, no one wants to cripple their system just because the power went down, or an [`ssh`](https://linux.die.net/man/1/ssh) (man page) session was interrupted by a bad connection, etcetera.
 
-What's more, by using this script I enable you to edit files comfortably even from a [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editor of your choice.
+What's more, by using this script I enable you to edit files comfortably even from a somewhat limited list of [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors.
+
+***
+
+## Demo
+
+For a quick look, I made this demo for you, it takes less than two and a half minutes.
+
+![SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo.svg)
 
 ***
 
@@ -34,15 +42,15 @@ Visit the [latest release download page](https://github.com/burianvlastimil/sudo
 
 ### General
 
-Once downloaded, place the script somewhere it can stay for good.
+Once downloaded, place the script somewhere it can stay for good. Be it `~/bin` or somewhere else completely.
 
 ### Before use
 
-Please, customize the editors lists to your preference before actually using this script, by default there are these specified at the beginning of the script:
+Please, customize the editor lists to your preference before actually using this script, by default there are these specified at the beginning of the script, for sure you can safely add any [CLI](https://en.wikipedia.org/wiki/Command-line_interface) editor, but [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors are somewhat problematic, which is why I have only been able to add [Sublime-Text](https://www.sublimetext.com/) and [Xed](https://github.com/linuxmint/xed) so far:
 
 ```bash
-sudoedit__cli_editors='vi nano'
-sudoedit__gui_editors='subl atom'
+cli_editors='vi nano'
+gui_editors='subl xed'
 ```
 
 You don't have to explicitly remove those not present in your system, as the script checks on existence of the editors upon every call (more precisely upon every sourcing to your [shell](https://en.wikipedia.org/wiki/Unix_shell)'s (wiki) environment).
