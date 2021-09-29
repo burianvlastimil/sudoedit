@@ -107,15 +107,15 @@ Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be dow
 
 ### [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors - screenshots
 
-[Sublime-Text](https://www.sublimetext.com/) editor (homepage) |  [Xed Mint](https://community.linuxmint.com/software/view/xed) editor (homepage)
+[Sublime-Text](https://www.sublimetext.com/) editor (home page) |  [Xed Mint](https://community.linuxmint.com/software/view/xed) editor (home page)
 :-------------------------:|:-------------------------:
 ![susubl /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--susubl--2021-sep-29.png)  |  ![suxed /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--suxed--2021-sep-29.png)
 
 **How to get these editors:**
 
-- The [Sublime-Text](https://www.sublimetext.com/) editor (home page) can be downloaded from [its homepage/download](https://www.sublimetext.com/download);
+- The [Sublime-Text](https://www.sublimetext.com/) editor (home page) can be downloaded from [its home page/download](https://www.sublimetext.com/download);
 
-- The [Xed Mint](https://community.linuxmint.com/software/view/xed) editor is pre-installed in [Linux Mint](https://linuxmint.com/) (homepage) and on some other [distributions](https://en.wikipedia.org/wiki/Linux_distribution) (wiki) can be installed via PPA: [`ppa:savoury1/xapps`](https://launchpad.net/~savoury1/+archive/ubuntu/xapps) (Launchpad link).
+- The [Xed Mint](https://community.linuxmint.com/software/view/xed) editor is pre-installed in [Linux Mint](https://linuxmint.com/) (home page) and on some other [distributions](https://en.wikipedia.org/wiki/Linux_distribution) (wiki) can be installed via PPA: [`ppa:savoury1/xapps`](https://launchpad.net/~savoury1/+archive/ubuntu/xapps) (Launchpad link).
 
 ***
 
