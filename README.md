@@ -99,22 +99,22 @@ These `alias`es begin with `su` + name of the editor.
 
 ### `sunano /etc/default/grub` (using the [Nano editor (CLI)](https://www.nano-editor.org/))
 
-Disclaimer: There is **no affiliation** with the [Nano editor](https://www.nano-editor.org/) (home page) team, but I _personaly like_ this command-line editor.
-
 ![GRUB config file safe editing with Nano CLI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--nano-2021.png)
 
 Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php), but note you would have to compile the program yourself, which is what I am doing.
 
 ***
 
-### `susubl /etc/default/grub` (using the [Sublime-Text editor (GUI)](https://www.sublimetext.com/))
+### [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors - screenshots
 
-Disclaimer: There is **no affiliation** with the [Sublime-Text editor](https://www.sublimetext.com/) (home page) team, but I _personaly like_ this graphical-interface editor.
+[Sublime-Text](https://www.sublimetext.com/) editor (homepage) |  [Xed Mint](https://community.linuxmint.com/software/view/xed) editor (homepage)
+:-------------------------:|:-------------------------:
+![susubl /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--susubl--2021-sep-29.png)  |  ![suxed /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--suxed--2021-sep-29.png)
 
-![GRUB config file safe editing with Sublime-Text GUI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--subl-2021.png)
+**How to get these editors:**
 
-Download: The [Sublime-Text editor](https://www.sublimetext.com/) (home page) can be downloaded from [this page](https://www.sublimetext.com/3).
-
+- The [Sublime-Text editor](https://www.sublimetext.com/) (home page) can be downloaded from [this page](https://www.sublimetext.com/download);
+- The [Xed Mint editor](https://community.linuxmint.com/software/view/xed) is pre-installed in [Linux Mint](https://linuxmint.com/) (homepage) and on some other [distributions](https://en.wikipedia.org/wiki/Linux_distribution) (wiki) can be installed via PPA: [`ppa:savoury1/xapps`](https://launchpad.net/~savoury1/+archive/ubuntu/xapps) (Launchpad link).
 
 ***
 
