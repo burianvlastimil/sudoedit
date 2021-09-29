@@ -26,13 +26,13 @@ This script enables you to edit text files on Linux as [`root`](https://en.wikip
 
 Internal workings are that `sudoedit` copies the file into a temporary file, and overwrites the original file if, and only if, that file has successfuly been changed (saved) and the text editor properly exited.
 
-It is a standard [POSIX](https://en.wikipedia.org/wiki/POSIX) (wiki) [shell script](https://en.wikipedia.org/wiki/Shell_script), it should work in any [Linux](https://en.wikipedia.org/wiki/Linux) (wiki) distribution; more precisely, your [shell](https://en.wikipedia.org/wiki/Unix_shell) (wiki).
+It is a standard [POSIX](https://en.wikipedia.org/wiki/POSIX) (wiki) [shell script](https://en.wikipedia.org/wiki/Shell_script) (wiki), it should work in any [Linux](https://en.wikipedia.org/wiki/Linux) (wiki) distribution; more precisely, your [shell](https://en.wikipedia.org/wiki/Unix_shell) (wiki).
 
 ***
 
 ## Requirements
 
-The only requirement is to have [`sudo`](https://linux.die.net/man/8/sudo) properly installed and configured. If you have that, then `sudoedit` is available automatically as it is directly [`sudo`](https://linux.die.net/man/8/sudo)'s _edit_ feature, it can even be invoked as `sudo -e`.
+The only requirement is to have [`sudo`](https://linux.die.net/man/8/sudo) properly installed and configured. If you have that, then `sudoedit` is available automatically as it is directly [`sudo`](https://linux.die.net/man/8/sudo)'s _edit_ feature, it can even be invoked as `sudo -e` or `sudo --edit`.
 
 ***
 
