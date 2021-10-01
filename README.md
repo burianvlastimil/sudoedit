@@ -115,7 +115,7 @@ Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be dow
 
 - The [Sublime-Text](https://www.sublimetext.com/) editor (home page) can be downloaded from [its home page/download](https://www.sublimetext.com/download);
 
-- The [Xed Mint](https://community.linuxmint.com/software/view/xed) editor is pre-installed in [Linux Mint](https://linuxmint.com/) (home page) and on some other Ubuntu-based [distributions](https://en.wikipedia.org/wiki/Linux_distribution) (wiki) can be installed via PPA: [`ppa:savoury1/xapps`](https://launchpad.net/~savoury1/+archive/ubuntu/xapps) (Launchpad link).
+- The [Xed Mint](https://community.linuxmint.com/software/view/xed) editor is pre-installed in [Linux Mint](https://linuxmint.com/) (home page) and on some other Ubuntu-based [distributions](https://en.wikipedia.org/wiki/Linux_distribution) (wiki) can be installed via [PPA](https://en.wikipedia.org/wiki/Ubuntu#Package_Archives) (wiki): [`ppa:savoury1/xapps`](https://launchpad.net/~savoury1/+archive/ubuntu/xapps) (Launchpad link).
 
 ***
 
