@@ -105,7 +105,7 @@ Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be dow
 
 ***
 
-### [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors - screenshots
+### [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors - screenshots (click to enlarge)
 
 [Sublime-Text](https://www.sublimetext.com/) editor (home page) |  [Xed Mint](https://community.linuxmint.com/software/view/xed) editor (home page)
 :-------------------------:|:-------------------------:
