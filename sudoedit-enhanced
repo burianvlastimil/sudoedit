@@ -10,9 +10,34 @@
 #|                         GitHub: https://git.io/Jvnzq                         |
 #+------------------------------------------------------------------------------+
 
-# Customize these editor lists to your preference before using this script.
-cli_editors='vi nano'
-gui_editors='subl xed'
+
+# Customize these editor lists to your preference
+# before sourcing the `sudoedit-enhanced` script:
+conf__cli_editors='vi nano'
+conf__gui_editors='subl xed'
+
+
+# Editor aliases generators:
+# - we avoid generating editors aliases for which an editor is not installed
+# - we avoid generating editors aliases for which we already have an alias
+
+for cli_editor in $conf__cli_editors; do
+    if command -v "$cli_editor" > /dev/null 2>&1; then
+        if [ -z "$( alias "su$cli_editor" 2> /dev/null)" ]; then
+            # shellcheck disable=SC2139,SC2086
+            alias su$cli_editor="sudoedit_run cli $cli_editor"
+        fi
+    fi
+done
+
+for gui_editor in $conf__gui_editors; do
+    if command -v "$gui_editor" > /dev/null 2>&1; then
+        if [ -z "$( alias "su$gui_editor" 2> /dev/null)" ]; then
+            # shellcheck disable=SC2139,SC2086
+            alias su$gui_editor="sudoedit_run gui $gui_editor"
+        fi
+    fi
+done
 
 # NON-COMPLIANT-GUI:
 #    - code -w --user-data-dir; I did not find a way to run it through `sudoedit`
@@ -51,7 +76,16 @@ sudoedit_run ()
 
     # print usage if called with 2 arguments
     if [ "$#" -eq 2 ]; then
-        printf '%s\n' 'Usage example: sunano /path/to/file1 /path/to/file2'
+        printf '%s\n\n' 'Usage example: sueditor /path/to/file1 /path/to/file2'
+        printf '%s\n' 'sudoedit-enhanced defined the following editors:'
+        for editor in $conf__cli_editors $conf__gui_editors; do
+            if command -v "$gui_editor" > /dev/null 2>&1; then
+                if [ -n "$( alias "su$editor" 2> /dev/null)" ]; then
+                    printf '%s  ' "su$editor"
+                fi
+            fi
+        done
+        printf '\n'
         return 0
     fi
 
@@ -103,14 +137,15 @@ sudoedit_run ()
         # 1. GUI editors will "sit" on the terminal until closed thanks to the wait option
         # 2. Various editors errors might flood the terminal, so we redirect all output,
         #    into prepared temporary file in order to filter possible "sudoedit: file unchanged" lines.
-        if tmpfile=$( mktemp /tmp/sudoedit_run.XXXXXXXXXX ); then
+        tmpdir=${TMPDIR:-/tmp}
+        if tmpfile=$( mktemp "$tmpdir"/sudoedit_run.XXXXXXXXXX ); then
             SUDO_EDITOR="$editor_path -w" sudoedit -- "$@" > "$tmpfile" 2>&1
             exit_code=$?
             grep 'sudoedit:' "$tmpfile"
             rm "$tmpfile"
             return "$exit_code"
         else
-            printf >&2 '%s\n' "mktemp /tmp/sudoedit_run.XXXXXXXXXX failed."
+            printf >&2 '%s\n' "mktemp $tmpdir/sudoedit_run.XXXXXXXXXX failed."
             return 1
         fi
     else
@@ -120,27 +155,3 @@ sudoedit_run ()
         SUDO_EDITOR="$editor_path" sudoedit -- "$@"
     fi
 }
-
-# Editor aliases generators:
-# - avoid generating editors aliases for which editor is not installed
-# - avoid generating editors aliases for which already have an alias
-
-for cli_editor in $cli_editors; do
-    if command -v "$cli_editor" > /dev/null 2>&1; then
-        # shellcheck disable=SC2139,SC2086
-        if [ -z "$( alias su$cli_editor 2> /dev/null)" ]; then
-            alias su$cli_editor="sudoedit_run cli $cli_editor"
-        fi
-    fi
-done
-
-for gui_editor in $gui_editors; do
-    if command -v "$gui_editor" > /dev/null 2>&1; then
-        # shellcheck disable=SC2139,SC2086
-        if [ -z "$( alias su$gui_editor 2> /dev/null)" ]; then
-            alias su$gui_editor="sudoedit_run gui $gui_editor"
-        fi
-    fi
-done
-
-unset cli_editors gui_editors cli_editor gui_editor
