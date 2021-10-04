@@ -12,13 +12,11 @@ What's more, by using this script I enable you to edit files comfortably even fr
 
 ## Demo
 
-For a quick look, I made this demo (SVG) for you, it takes less than two and a half minutes.
+For a quick look, I made a short (SVG) demo for you, it takes less than two and a half minutes.
 
-**Beware, it may be loading slow on this Readme, best to click on it and play separately.**
+It was loading unbearably slow on this Readme, so if you want to see it, click [SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo-2021.svg) and play it separately.
 
-I will not update the demo if there is any little change, however, it's merely to show you an actual work.
-
-![SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo-2021.svg)
+I will not update the demo if there is some little change, however, it's merely to show you an actual work.
 
 ***
 
@@ -109,20 +107,17 @@ suvi  sunano  susubl  suxed
 
 ## Examples of an actual use
 
-### `sunano /etc/default/grub` (using the [Nano editor (CLI)](https://www.nano-editor.org/))
-
-![GRUB config file safe editing with Nano CLI editor](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--nano-2021.png)
-
-Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php), but note you would have to compile the program yourself, which is what I am doing.
-
-
-
 ### [CLI](https://en.wikipedia.org/wiki/Command-line_interface) (wiki) editors - screenshots (click to enlarge)
 
 [Nano](https://www.nano-editor.org/) editor (home page) | [Vi](https://www.vim.org/) editor (home page)
 :-------------------------:|:-------------------------:
-
 ![sunano /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--sunano--2021-oct-04.png) | ![suvi /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--suvi--2021-oct-04.png)
+
+**How to get these editors:**
+
+- The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php), but note you would have to compile the program yourself, which is what I am doing. It may be much more comfortable just to use the packaged version.
+
+- The [Vi](https://www.vim.org/) editor (home page) can be downloaded from [this page](https://www.vim.org/download.php), I personally prefer the packaged version myself to compiling it.
 
 ***
 
