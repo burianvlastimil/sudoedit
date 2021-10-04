@@ -6,13 +6,13 @@
 
 This topic might interest all [Linux](https://en.wikipedia.org/wiki/Linux) (wiki) administrators as it is them who do the changes. Be it a home user, or a corporate admin. Without a doubt, no one wants to cripple their system just because the power went down, or an [`ssh`](https://linux.die.net/man/1/ssh) (man page) session was interrupted by a bad connection, etcetera.
 
-What's more, by using this script I enable you to edit files comfortably even from a somewhat limited list of [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors.
+**What's more, by using this script I enable you to edit files comfortably even from a somewhat limited list of [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors.**
 
 ***
 
 ## Demo
 
-For a quick look, I made a short (SVG) demo for you, it takes less than two and a half minutes.
+For a quick look, I made a short SVG demo for you, it takes less than two and a half minutes.
 
 It was loading unbearably slow on this Readme, so if you want to see it, click [SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo-2021.svg) and play it separately.
 
@@ -73,7 +73,7 @@ My personal recommendation is to create (if not yet existing) the `~/.bash_alias
 . /full/path/to/sudoedit-enhanced
 ```
 
-Sourcing using the _dot_ (.) is a [POSIX](https://en.wikipedia.org/wiki/POSIX) (wiki) way of doing so. Although, in [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) (wiki), there is also the `source` builtin command, so you can use that, if you want.
+Sourcing using the _dot_ (`.`) is a [POSIX](https://en.wikipedia.org/wiki/POSIX) (wiki) way of doing so. Although, in [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) (wiki), there is also the `source` builtin command, so you can use that, if you want.
 
 Afterward, you need to make sure that these (or similar) lines are present and not commented out in your `~/.bashrc`:
 
