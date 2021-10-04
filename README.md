@@ -12,15 +12,17 @@ What's more, by using this script I enable you to edit files comfortably even fr
 
 ## Demo
 
-For a quick look, I made this demo for you, it takes less than two and a half minutes.
+For a quick look, I made this demo (SVG) for you, it takes less than two and a half minutes.
 
-Beware it may be loading slow on this Readme, best to click on it and play separately if needed.
+**Beware, it may be loading slow on this Readme, best to click on it and play separately.**
+
+I will not update the demo if there is any little change, however, it's merely to show you an actual work.
 
 ![SVG demo](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--demo-2021.svg)
 
 ***
 
-## [POSIX](https://en.wikipedia.org/wiki/POSIX) (wiki) shells compatibility
+## [POSIX](https://en.wikipedia.org/wiki/POSIX) (wiki) [shells](https://en.wikipedia.org/wiki/Unix_shell) (wiki) compatibility
 
 This script enables you to edit text files on Linux as [`root`](https://en.wikipedia.org/wiki/Superuser#Unix_and_Unix-like) (wiki) safely through `sudoedit`.
 
@@ -48,11 +50,11 @@ Once downloaded, place the script somewhere it can stay for good. Be it `~/bin` 
 
 ### Before use
 
-Please, customize the editor lists to your preference before actually using this script, by default there are these specified at the beginning of the script, for sure you can safely add any [CLI](https://en.wikipedia.org/wiki/Command-line_interface) editor, but [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors are somewhat problematic, which is why I have only been able to add [Sublime-Text](https://www.sublimetext.com/) and [Xed](https://github.com/linuxmint/xed) so far:
+You may edit the beginning of this script to customize the editor lists to your preference before actually using this script, by default there are these specified at the beginning of the script, for sure you can safely add any [CLI](https://en.wikipedia.org/wiki/Command-line_interface) editor, but [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors are somewhat problematic, which is why I have only been able to add [Sublime-Text](https://www.sublimetext.com/) (home page) and [Xed](https://github.com/linuxmint/xed) (GitHub page) so far:
 
 ```bash
-cli_editors='vi nano'
-gui_editors='subl xed'
+conf__cli_editors='vi nano'
+conf__gui_editors='subl xed'
 ```
 
 You don't have to explicitly remove those not present in your system, as the script checks on existence of the editors upon every call (more precisely upon every sourcing to your [shell](https://en.wikipedia.org/wiki/Unix_shell)'s (wiki) environment).
@@ -67,7 +69,7 @@ The integration will vary greatly on what shell you use. As there are many [shel
 
 There are multiple ways to source my script to your [`bash`](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) (wiki), of course.
 
-My personal recommendation is to create (if not yet existing) the `~/.bash_aliases` file and source my script from there using the _dot_ (`.`):
+My personal recommendation is to create (if not yet existing) the `~/.bash_aliases` file and source my script from there using the _dot_ (`.`) notation:
 
 ```bash
 . /full/path/to/sudoedit-enhanced
@@ -85,7 +87,7 @@ fi
 
 ***
 
-### Generated `alias`es
+### Generated editor `alias`es
 
 On every machine, there will always be different number of `alias`es.
 
@@ -93,9 +95,19 @@ As said before, the script checks on existence of each editor. This is true also
 
 These `alias`es begin with `su` + name of the editor.
 
+To get the current list of generated editor `alias`es, just run `sudoedit_run` without any argument, example:
+
+```bash
+$ sudoedit_run
+Usage example: sueditor /path/to/file1 /path/to/file2
+
+sudoedit-enhanced defined the following editors:
+suvi  sunano  susubl  suxed
+```
+
 ***
 
-## Examples of actual use
+## Examples of an actual use
 
 ### `sunano /etc/default/grub` (using the [Nano editor (CLI)](https://www.nano-editor.org/))
 
@@ -103,13 +115,22 @@ These `alias`es begin with `su` + name of the editor.
 
 Download: The [Nano editor](https://www.nano-editor.org/) (home page) can be downloaded from [this page](https://www.nano-editor.org/download.php), but note you would have to compile the program yourself, which is what I am doing.
 
+
+
+### [CLI](https://en.wikipedia.org/wiki/Command-line_interface) (wiki) editors - screenshots (click to enlarge)
+
+[Nano](https://www.nano-editor.org/) editor (home page) | [Vi](https://www.vim.org/) editor (home page)
+:-------------------------:|:-------------------------:
+
+![sunano /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--sunano--2021-oct-04.png) | ![suvi /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--suvi--2021-oct-04.png)
+
 ***
 
 ### [GUI](https://en.wikipedia.org/wiki/Graphical_user_interface) (wiki) editors - screenshots (click to enlarge)
 
-[Sublime-Text](https://www.sublimetext.com/) editor (home page) |  [Xed Mint](https://community.linuxmint.com/software/view/xed) editor (home page)
+[Sublime-Text](https://www.sublimetext.com/) editor (home page) | [Xed Mint](https://community.linuxmint.com/software/view/xed) editor (home page)
 :-------------------------:|:-------------------------:
-![susubl /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--susubl--2021-sep-29.png)  |  ![suxed /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--suxed--2021-sep-29.png)
+![susubl /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--susubl--2021-sep-29.png) | ![suxed /etc/default/grub](https://www.vlastimilburian.cz/github_images/sudoedit-enhanced--suxed--2021-sep-29.png)
 
 **How to get these editors:**
 

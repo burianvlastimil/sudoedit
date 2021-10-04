@@ -68,14 +68,8 @@ done
 
 sudoedit_run ()
 {
-    # print error if called with 0 or 1 argument
-    if [ "$#" -le 1 ]; then
-        printf >&2 '%s\n' "Implementation example: alias sunano='sudoedit_run cli nano'"
-        return 1
-    fi
-
     # print usage if called with 2 arguments
-    if [ "$#" -eq 2 ]; then
+    if [ "$#" -le 2 ]; then
         printf '%s\n\n' 'Usage example: sueditor /path/to/file1 /path/to/file2'
         printf '%s\n' 'sudoedit-enhanced defined the following editors:'
         for editor in $conf__cli_editors $conf__gui_editors; do
