@@ -1,51 +1,51 @@
 #!/bin/sh
 
 #+------------------------------------------------------------------------------+
-#|                        Safe text files editing as `root`                     |
-#|                          Language: POSIX shell script                        |
-#|                     Copyright: 2020-2021 Vlastimil Burian                    |
-#|                      M@il: info[..]vlastimilburian[..]cz                     |
+#|                      Safe system files editing as root                       |
+#|                         Language: POSIX shell script                         |
+#|                    Copyright: 2020-2022 Vlastimil Burian                     |
+#|                        Email: info@vlastimilburian.cz                        |
 #|                              License: Unlicense                              |
-#|                                 Version: 3.0                                 |
 #|                         GitHub: https://git.io/Jvnzq                         |
+#|                              Version: 4.0-beta                               |
+#|                            Released: 2022-Feb-25                             |
 #+------------------------------------------------------------------------------+
 
-
 # Customize these editor lists to your preference
-# before sourcing the `sudoedit-enhanced` script:
+# before sourcing this script to your shell environment.
 conf__cli_editors='vi nano'
 conf__gui_editors='subl xed'
 
+# We avoid generating editor aliases for which an editor is not installed.
+# We avoid generating editor aliases for which we already have an alias.
 
-# Editor aliases generators:
-# - we avoid generating editors aliases for which an editor is not installed
-# - we avoid generating editors aliases for which we already have an alias
-
+# CLI alias generator:
 for cli_editor in $conf__cli_editors; do
-    if command -v "$cli_editor" > /dev/null 2>&1; then
-        if [ -z "$( alias "su$cli_editor" 2> /dev/null)" ]; then
+    if command -v "$cli_editor" >/dev/null 2>&1; then
+        if [ -z "$(alias "su$cli_editor" 2>/dev/null)" ]; then
             # shellcheck disable=SC2139,SC2086
             alias su$cli_editor="sudoedit_run cli $cli_editor"
         fi
     fi
 done
 
+# GUI alias generator:
 for gui_editor in $conf__gui_editors; do
-    if command -v "$gui_editor" > /dev/null 2>&1; then
-        if [ -z "$( alias "su$gui_editor" 2> /dev/null)" ]; then
+    if command -v "$gui_editor" >/dev/null 2>&1; then
+        if [ -z "$(alias "su$gui_editor" 2>/dev/null)" ]; then
             # shellcheck disable=SC2139,SC2086
             alias su$gui_editor="sudoedit_run gui $gui_editor"
         fi
     fi
 done
 
-# NON-COMPLIANT-GUI:
-#    - code -w --user-data-dir; I did not find a way to run it through `sudoedit`
-#    - atom -w --no-sandbox
-#    - gedit -w does not work via rooted ssh
-#    - pluma does not have -w switch
+# NON-COMPLIANT-GUI EXAMPLES:
+# * code -w --user-data-dir; I did not find a way to run it through sudoedit
+# * atom -w --no-sandbox
+# * gedit -w does not work via rooted ssh
+# * pluma does not have -w switch
 #
-# Description: This script works with standard `sudoedit`, but
+# Description: This script works with standard sudoedit, but
 # it does a bit more checks and allows some GUI editors to be used.
 # It also allows symbolic links be translated into ordinary files.
 # It needs to be sourced into your shell's environment first.
@@ -68,13 +68,13 @@ done
 
 sudoedit_run ()
 {
-    # print usage if called with 2 arguments
+    # Print usage if called with 2 arguments.
     if [ "$#" -le 2 ]; then
         printf '%s\n\n' 'Usage example: sueditor /path/to/file1 /path/to/file2'
         printf '%s\n' 'sudoedit-enhanced defined the following editors:'
         for editor in $conf__cli_editors $conf__gui_editors; do
-            if command -v "$gui_editor" > /dev/null 2>&1; then
-                if [ -n "$( alias "su$editor" 2> /dev/null)" ]; then
+            if command -v "$editor" >/dev/null 2>&1; then
+                if [ -n "$(alias "su$editor" 2>/dev/null)" ]; then
                     printf '%s  ' "su$editor"
                 fi
             fi
@@ -83,41 +83,42 @@ sudoedit_run ()
         return 0
     fi
 
-    # sudo must be installed
-    if ! command -v sudo > /dev/null 2>&1; then
+    # sudo must be installed.
+    if ! command -v sudo >/dev/null 2>&1; then
         printf >&2 '%s\n' "'sudo' is required by this function. This is because" \
                           "'sudoedit' is part of 'sudo'\`s edit feature (sudo -e)."
         return 1
     fi
 
-    # the first argument must be an editor type
+    # The first argument must be an editor type.
     case "$1" in
-        ('cli'|'gui')
+        (cli|gui)
         ;;
-        (*)
-            printf >&2 '%s\n' "'$1' is unrecognized editor type, expected 'cli' or 'gui'."
+        (*) printf >&2 '%s\n' "'$1' is unrecognized editor type, expected 'cli' or 'gui'."
             return 1
         ;;
     esac
 
-    # store editor's type and name and move these two out of argument array
-    editor_type=$1; editor_name=$2; shift 2
+    # Store editor type and name and move these two out of argument array.
+    editor_type=$1
+    editor_name=$2
+    shift 2
 
-    # find and store path to this editor
-    editor_path=$( command -v "$editor_name" 2> /dev/null )
+    # Find and store path to this editor.
+    editor_path=$(command -v "$editor_name" 2>/dev/null)
 
-    # check if such editor = executable path exists
-    if ! [ -x "$editor_path" ]; then
+    # Check if such editor, ie. executable path exists.
+    if [ ! -x "$editor_path" ]; then
         printf >&2 '%s\n' "The '$editor_name' editor is not properly installed on this system."
         return 1
     fi
 
-    # `sudoedit` does not work with symlinks!
-    # translating symlinks to normal file paths using `readlink` if available
-    if command -v readlink > /dev/null 2>&1; then
+    # sudoedit does not work with symlinks;
+    # Translating symlinks to normal file paths using readlink - if available.
+    if command -v readlink >/dev/null 2>&1; then
         for file in "$@"; do
             if [ -L "$file" ]; then
-                if ! file=$( readlink -f "$file" ); then
+                if ! file=$(readlink -f "$file"); then
                     printf >&2 '%s\n' "readlink -f $file failed."
                     return 1
                 fi
@@ -127,15 +128,16 @@ sudoedit_run ()
         done
     fi
 
-    if [ "$editor_type" = 'gui' ]; then
+    if [ "$editor_type" = gui ]; then
         # 1. GUI editors will "sit" on the terminal until closed thanks to the wait option
-        # 2. Various editors errors might flood the terminal, so we redirect all output,
+        # 2. Various editors errors might flood the terminal with errors, so we redirect all output,
         #    into prepared temporary file in order to filter possible "sudoedit: file unchanged" lines.
         tmpdir=${TMPDIR:-/tmp}
-        if tmpfile=$( mktemp "$tmpdir"/sudoedit_run.XXXXXXXXXX ); then
-            SUDO_EDITOR="$editor_path -w" sudoedit -- "$@" > "$tmpfile" 2>&1
+        if tmpfile=$(mktemp "$tmpdir"/sudoedit_run.XXXXXXXXXX); then
+            SUDO_EDITOR="$editor_path -w" sudoedit -- "$@" >"$tmpfile" 2>&1
             exit_code=$?
-            grep 'sudoedit:' "$tmpfile"
+            # shellcheck disable=SC1007
+            GREP_COLORS= GREP_COLOR= GREP_OPTIONS= grep 'sudoedit' "$tmpfile"
             rm "$tmpfile"
             return "$exit_code"
         else
@@ -144,7 +146,7 @@ sudoedit_run ()
         fi
     else
         # 1. CLI editors do not cause problems mentioned above.
-        # 2. This is a generic and proper way using `sudoedit`;
+        # 2. This is a generic and proper way using sudoedit;
         #    Running the editor with one-time SUDO_EDITOR setup.
         SUDO_EDITOR="$editor_path" sudoedit -- "$@"
     fi
