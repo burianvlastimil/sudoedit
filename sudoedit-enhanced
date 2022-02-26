@@ -7,8 +7,8 @@
 #|                        Email: info@vlastimilburian.cz                        |
 #|                              License: Unlicense                              |
 #|                         GitHub: https://git.io/Jvnzq                         |
-#|                              Version: 4.0-beta                               |
-#|                            Released: 2022-Feb-25                             |
+#|                              Version: 4.0-beta2                              |
+#|                            Released: 2022-Feb-26                             |
 #+------------------------------------------------------------------------------+
 
 # Customize these editor lists to your preference
@@ -128,26 +128,45 @@ sudoedit_run ()
         done
     fi
 
+    # - GUI editors sit on the terminal until closed thanks to the wait option which we require.
+    #   For example xed and others flood the terminal with errors, so we redirect all output,
+    #   into prepared temporary file in order to filter possible "sudoedit: file unchanged" lines.
+    # - CLI editors work as expected without any customizations needed.
     if [ "$editor_type" = gui ]; then
-        # 1. GUI editors will "sit" on the terminal until closed thanks to the wait option
-        # 2. Various editors errors might flood the terminal with errors, so we redirect all output,
-        #    into prepared temporary file in order to filter possible "sudoedit: file unchanged" lines.
+
+        # GUI step 1) We try to determine the location of a temporary directory.
         tmpdir=${TMPDIR:-/tmp}
-        if tmpfile=$(mktemp "$tmpdir"/sudoedit_run.XXXXXXXXXX); then
-            SUDO_EDITOR="$editor_path -w" sudoedit -- "$@" >"$tmpfile" 2>&1
-            exit_code=$?
-            # shellcheck disable=SC1007
-            GREP_COLORS= GREP_COLOR= GREP_OPTIONS= grep 'sudoedit' "$tmpfile"
-            rm "$tmpfile"
-            return "$exit_code"
-        else
-            printf >&2 '%s\n' "mktemp $tmpdir/sudoedit_run.XXXXXXXXXX failed."
+        if [ ! -d "$tmpdir" ]; then
+            # shellcheck disable=SC2016
+            printf >&2 '%s\n' '${TMPDIR:-/tmp} failed to get a temporary directory.'
             return 1
         fi
+
+        # GUI step 2) We try to create a temporary file inside the temporary directory.
+        tmpfile=$(mktemp "$tmpdir/sudoedit_run_gui.XXXXXX")
+        if [ ! -f "$tmpfile" ]; then
+            printf >&2 '%s\n' "mktemp $tmpdir/sudoedit_run_gui.XXXXXX failed to get a temporary file."
+            return 1
+        fi
+
+        # GUI step 3) We try to launch the above identified editor through sudoedit.
+        # * We require the wait switch for the editor to have it.
+        # * We redirect all output to the temporary file we created.
+        # * We store sudoedit's return code into a variable as we need it later on.
+        SUDO_EDITOR="$editor_path -w" sudoedit -- "$@" >"$tmpfile" 2>&1
+        sudoedit_return_code=$?
+
+        # When using grep, it is important to escape it for there is usually some alias.
+        # shellcheck disable=SC1007
+        GREP_COLORS= GREP_COLOR= GREP_OPTIONS= \grep sudoedit "$tmpfile"
+        rm "$tmpfile"
+
+        # It is imperative to return with sudoedit's return code, and not rm's or something else.
+        return "$sudoedit_return_code"
     else
-        # 1. CLI editors do not cause problems mentioned above.
-        # 2. This is a generic and proper way using sudoedit;
-        #    Running the editor with one-time SUDO_EDITOR setup.
+        # CLI editors do not cause problems mentioned above.
+        # This is a generic and proper way using sudoedit;
+        # Running the editor with one-time SUDO_EDITOR setup.
         SUDO_EDITOR="$editor_path" sudoedit -- "$@"
     fi
 }
